@@ -1,9 +1,94 @@
 :host {
   display: block;
-  min-height: 100vh;
-  background: #f8fafc;
+}
+
+.landing-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0rem 1.5rem 2rem;
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+}
+
+.brand-search {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.logo-pill {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+  text-decoration: none;
+}
+
+.logo-image {
+  display: block;
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+}
+
+.logo-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f97316, #2563eb);
+  color: white;
+  font-weight: 800;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  background: white;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 0.95rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: #0f172a;
-  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.search-bar input::placeholder {
+  color: #64748b;
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+.search-bar button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 0.95rem 1.15rem;
+  cursor: pointer;
 }
 
 .header-actions {
@@ -200,6 +285,17 @@
   text-align: center;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   min-height: 180px;
+}
+
+.category-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
 }
 
 .icon {

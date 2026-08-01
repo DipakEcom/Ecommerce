@@ -1,0 +1,209 @@
+<div class="product-page">
+  <div class="sticky-header-group">
+    <header class="product-page-header">
+      <div class="header-left">
+        <div class="header-brand">
+          <img src="assets/logo.svg" alt="Fashion Zone logo" class="brand-logo" />
+          <span class="brand-tag">Pro</span>
+        </div>
+      <div class="header-search">
+        <input type="search" placeholder="Search for products, brands and more" />
+        <button type="button">🔍</button>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="header-link">Fashion Zone ▾</button>
+      <button class="header-link">Become a Seller</button>
+      <button class="header-link">More ▾</button>
+      <button class="cart-summary">🛒 Cart <span>23</span></button>
+    </div>
+  </header>
+
+  <nav class="product-menu">
+    <ul>
+      <li><button>Electronics ▾</button></li>
+      <li><button>TVs & Appliances ▾</button></li>
+      <li>
+        <button>Men ▾</button>
+        <div class="submenu">
+          <a href="#">T-Shirts</a>
+          <a href="#">Shirts</a>
+          <a href="#">Jeans</a>
+          <a href="#">Shoes</a>
+        </div>
+      </li>
+      <li>
+        <button>Women ▾</button>
+        <div class="submenu">
+          <a href="#">Ethnic Wear</a>
+          <a href="#">Western Wear</a>
+          <a href="#">Footwear</a>
+          <a href="#">Bags</a>
+        </div>
+      </li>
+      <li><button>Baby & Kids ▾</button></li>
+      <li><button>Home & Furniture ▾</button></li>
+      <li><button>Sports, Books & More ▾</button></li>
+      <li><button>Flights</button></li>
+      <li><button>Offer Zone</button></li>
+      <!-- <li><button>Grocery</button></li> -->
+    </ul>
+  </nav>
+  </div>
+
+  <section class="page-shell">
+    <div class="hero-row">
+      <div class="breadcrumbs">Home / Clothing and Accessories / Topwear / Shirts</div>
+      <div class="hero-actions">
+        <div class="hero-label">Showing 1-{{ visibleCount }} of 12,260 products</div>
+        <div class="sort-group">
+          <label for="sortSelect">Sort By</label>
+          <select id="sortSelect" [(ngModel)]="selectedSort">
+            <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <div class="filter-panel">
+          <div class="panel-title">Filters</div>
+
+          <div class="filter-group">
+            <div class="group-title">Categories</div>
+            <ul>
+              <li>Women's Shirts</li>
+              <li>Kids' Shirts</li>
+              <li class="active">Men's Shirts</li>
+            </ul>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Brand</div>
+            <label *ngFor="let brand of brandOptions" class="filter-checkbox">
+              <input
+                type="checkbox"
+                [checked]="selectedBrands.has(brand)"
+                (change)="toggleSelection(selectedBrands, brand)"
+              />
+              <span>{{ brand }}</span>
+            </label>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Color</div>
+            <div class="color-list">
+              <button
+                type="button"
+                *ngFor="let color of colorOptions"
+                [class.selected]="selectedColors.has(color)"
+                (click)="toggleSelection(selectedColors, color)"
+              >
+                {{ color }}
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Size</div>
+            <div class="size-list">
+              <button
+                type="button"
+                *ngFor="let size of sizeOptions"
+                [class.selected]="selectedSizes.has(size)"
+                (click)="toggleSelection(selectedSizes, size)"
+              >
+                {{ size }}
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Price</div>
+            <div class="price-inputs">
+              <input type="number" [(ngModel)]="priceRange.from" [min]="priceRange.min" [max]="priceRange.to" />
+              <span>to</span>
+              <input type="number" [(ngModel)]="priceRange.to" [min]="priceRange.from" [max]="priceRange.max" />
+            </div>
+            <div class="price-range">
+              <span>{{ formatPrice(priceRange.min) }}</span>
+              <span>{{ formatPrice(priceRange.max) }}</span>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Customer Ratings</div>
+            <label class="filter-checkbox"><input type="checkbox" /> 4 ★ & above</label>
+            <label class="filter-checkbox"><input type="checkbox" /> 3 ★ & above</label>
+          </div>
+
+          <div class="filter-group">
+            <div class="group-title">Discount</div>
+            <label class="filter-checkbox"><input type="checkbox" /> 50% or more</label>
+            <label class="filter-checkbox"><input type="checkbox" /> 70% or more</label>
+          </div>
+        </div>
+      </aside>
+
+      <main class="product-panel">
+        <div class="product-grid">
+          <article class="product-card" *ngFor="let product of filteredProducts">
+            <div class="card-header">
+              <span class="tag">{{ product.badge || 'Sponsored' }}</span>
+              <button class="fav-button" type="button" aria-label="Save product">♥</button>
+            </div>
+
+            <div class="image-frame">
+              <img [src]="product.image" [alt]="product.title" />
+            </div>
+
+            <div class="card-body">
+              <div class="product-brand">{{ product.brand }}</div>
+              <h3 class="product-title">{{ product.title }}</h3>
+              <div class="price-row">
+                <span class="current-price">{{ formatPrice(product.price) }}</span>
+                <span class="original-price">{{ formatPrice(product.originalPrice) }}</span>
+                <span class="discount">{{ product.discount }}% off</span>
+              </div>
+              <div class="secondary-row">
+                <span>{{ product.installments }}</span>
+                <span class="stock-note">{{ product.stockNote }}</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <footer class="product-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>About</h3>
+        <a href="#">Contact Us</a>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <a href="#">Payments</a>
+        <a href="#">Shipping</a>
+        <a href="#">Cancellation & Returns</a>
+      </div>
+      <div>
+        <h3>Policy</h3>
+        <a href="#">Returns</a>
+        <a href="#">Security</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div>
+        <h3>Registered Office</h3>
+        <p>Flipkart Internet Private Limited,</p>
+        <p>Buildings Alyssa, Begonia & Clover</p>
+        <p>Embassy Tech Village, Outer Ring Road,</p>
+        <p>Devarabeesanahalli Village, Bengaluru, 560103</p>
+      </div>
+    </div>
+  </footer>
+</div>
