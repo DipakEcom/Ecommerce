@@ -30,9 +30,9 @@
       border: 1px solid rgba(230,230,230,0.9);
       padding: 1.25rem 1rem;
       border-radius: 12px;
-      transition: transform 0.28s cubic-bezier(.2,.9,.3,1), box-shadow 0.28s, border-color 0.28s;
+      transition: transform 0.28s cubic-bezier(.2,.9,.3,1), box-shadow 0.28s, border-color 0.28s, background 0.28s;
       box-shadow: 0 6px 18px rgba(32, 40, 55, 0.06);
-      cursor: default;
+      cursor: pointer;
       will-change: transform;
 
       &::before {
@@ -49,14 +49,23 @@
 
       &:hover {
         transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.12);
+        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.14);
         border-color: transparent;
       }
       &:hover::before { transform: translateY(0); }
 
+      &:focus-visible,
       &.active {
-        transform: translateY(-5px);
-        border-color: rgba(37, 99, 235, 0.2);
+        outline: none;
+        transform: translateY(-6px);
+        border-color: rgba(37, 99, 235, 0.4);
+        box-shadow: 0 20px 50px rgba(37, 99, 235, 0.18);
+        background: linear-gradient(180deg, rgba(255,255,255,1), rgba(244,248,255,1));
+      }
+
+      &.active::before {
+        transform: translateY(0);
+        opacity: 1;
       }
 
       .card-badge {
@@ -70,6 +79,11 @@
         color: #0f172a;
         box-shadow: 0 6px 18px rgba(32,40,55,0.06);
         border: 1px solid rgba(0,0,0,0.04);
+      }
+
+      &.active .card-badge {
+        background: rgba(255,255,255,1);
+        border-color: rgba(37,99,235,0.12);
       }
 
       .label { color: #8b95a6; font-size: 0.9rem; margin: 0; }
@@ -103,7 +117,15 @@
       gap: 10px;
       margin-bottom: 12px;
 
-      .orders-count { margin: 0; color: #475569; }
+      .orders-count {
+        margin: 0;
+        color: #111827;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+      .orders-count strong {
+        color: #2563eb;
+      }
       .actions-right { display:flex; gap: 10px; }
     }
 
