@@ -1,0 +1,65 @@
+<div class="history-wrap">
+  <header class="history-header">
+    <h2>Site History & Stats</h2>
+    <p class="subtitle">Overview of visits, online orders, COD deliveries and payments.</p>
+  </header>
+
+  <section class="stats-grid">
+    <div class="stat-card visitors" role="button" tabindex="0" (click)="toggleMetric('visitors')" [class.active]="activeMetric === 'visitors'">
+      <span class="card-badge" aria-hidden>👥 Visitors</span>
+      <p class="label">Visitors</p>
+      <p class="value">{{ stats.visitors }}</p>
+    </div>
+
+    <div class="stat-card orders" role="button" tabindex="0" (click)="toggleMetric('orders')" [class.active]="activeMetric === 'orders'">
+      <span class="card-badge" aria-hidden>🛒 Orders</span>
+      <p class="label">Online Orders</p>
+      <p class="value">{{ stats.onlineOrders }}</p>
+    </div>
+
+    <div class="stat-card cod" role="button" tabindex="0" (click)="toggleMetric('cod')" [class.active]="activeMetric === 'cod'">
+      <span class="card-badge" aria-hidden>📦 COD</span>
+      <p class="label">COD Delivered</p>
+      <p class="value">{{ stats.codDelivered }}</p>
+    </div>
+
+    <div class="stat-card payments" role="button" tabindex="0" (click)="toggleMetric('payments')" [class.active]="activeMetric === 'payments'">
+      <span class="card-badge" aria-hidden>💳 Payments</span>
+      <p class="label">Payments Received</p>
+      <p class="value">{{ stats.paymentsReceived }}</p>
+    </div>
+  </section>
+
+  <section *ngIf="activeMetric" class="orders-list">
+    <div class="orders-actions">
+      <div class="actions-left">
+        <p class="orders-count">{{ activeTableData.title }} · Showing <strong>{{ activeTableData.rows.length }}</strong> records</p>
+      </div>
+      <div class="actions-right">
+        <button class="primary-btn" (click)="downloadCSV()">Download CSV</button>
+        <button class="secondary-btn" (click)="downloadPDF()">Download PDF</button>
+      </div>
+    </div>
+
+    <div class="orders-table-wrap">
+      <div class="table-scroll">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th *ngFor="let header of activeTableData.headers">{{ header }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of activeTableData.rows">
+              <td *ngFor="let cell of row">{{ cell }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="notes">
+    <p>Data shown is fetched from the backend (mock for now). Replace <strong>HistoryService</strong> with real endpoints as needed.</p>
+  </section>
+</div>

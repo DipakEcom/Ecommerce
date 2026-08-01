@@ -3,11 +3,13 @@ import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { HistoryComponent } from './history/history.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'history', component: HistoryComponent },
   { path: 'products', component: ProductListComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

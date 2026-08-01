@@ -179,6 +179,12 @@ button[type="submit"] {
   flex-wrap: wrap;
 }
 
+.admin-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .status-label {
   margin: 0;
   font-size: 0.88rem;

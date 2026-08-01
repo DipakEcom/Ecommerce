@@ -39,7 +39,10 @@
           <p class="status-label">Signed in as</p>
           <p class="status-value"><strong>{{ user?.email || 'admin' }}</strong></p>
         </div>
-        <button class="link-btn" (click)="signOutLocal()">Sign out</button>
+        <div class="admin-actions">
+          <a class="link-btn" routerLink="/history">History</a>
+          <button class="link-btn" (click)="signOutLocal()">Sign out</button>
+        </div>
       </div>
 
       <div class="product-card">
