@@ -1,59 +1,88 @@
 <div class="landing-page">
   <header class="landing-header">
-    <div class="brand-search">
+    <div class="top-header">
       <a class="logo-pill" routerLink="/">
         <img src="assets/logo.svg" alt="Fashion Zone logo" class="logo-image" />
       </a>
       <div class="search-bar">
-        <input type="search" placeholder="Search for Products, Brands and More" />
-        <button type="button">🔍</button>
+        <button class="category-pill" type="button">All Categories</button>
+        <input type="search" placeholder="Search for products, brands and more" />
+        <button type="button" class="search-button">🔍</button>
+      </div>
+      <div class="top-actions">
+        <button class="text-action">Offers</button>
+        <button class="text-action">Track Order</button>
+        <button class="text-action">Help</button>
+        <button class="cart-button">Cart <span>23</span></button>
+        <button class="sign-in-button" routerLink="/login">Sign In</button>
       </div>
     </div>
-    <div class="header-actions">
-      <button class="action-pill">Fashion Zone</button>
-      <button class="action-pill">Minutes</button>
-      <button class="action-pill">Travel</button>
-      <button class="action-pill">Grocery</button>
-      <button class="cart-button">🛒 Cart <span>23</span></button>
-    </div>
-  </header>
 
-  <nav class="landing-nav">
-    <ul>
-      <li><a class="active" href="#">For You</a></li>
-      <li><a href="#">Fashion</a></li>
-      <li><a href="#">Mobiles</a></li>
-      <li><a href="#">Beauty</a></li>
-      <li><a href="#">Electronics</a></li>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Appliances</a></li>
-      <li><a href="#">Toys, baby</a></li>
-      <li><a href="#">Food & H</a></li>
-      <li><a href="#">Auto Acc</a></li>
-      <li><a href="#">2 Wheelers</a></li>
-      <li><a href="#">Sports & More</a></li>
-      <li><a href="#">Books & More</a></li>
-      <li><a href="#">Furniture</a></li>
-    </ul>
-  </nav>
+    <nav class="landing-nav">
+      <ul>
+        <li><a class="active" href="#">For You</a></li>
+        <li><a href="#">Fashion</a></li>
+        <li><a href="#">Mobiles</a></li>
+        <li><a href="#">Beauty</a></li>
+        <li><a href="#">Electronics</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Appliances</a></li>
+        <li><a href="#">Toys, Baby</a></li>
+        <li><a href="#">Food & H</a></li>
+        <li><a href="#">Auto Acc</a></li>
+        <li><a href="#">2 Wheelers</a></li>
+        <li><a href="#">Sports & More</a></li>
+        <li><a href="#">Books & More</a></li>
+        <li><a href="#">Furniture</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main class="hero-area">
     <section class="hero-panel">
       <div class="hero-left">
-        <div class="hero-badge">GRWM Sale</div>
-        <h1>It ends tonight<br/>From ₹99</h1>
+        <div class="hero-badge">GRWM SALE</div>
+        <h1>It ends tonight<br />From ₹99</h1>
         <p>Shop now and enjoy instant discounts with SBI card offers.</p>
         <button class="hero-cta">Shop Now</button>
       </div>
-      <div class="hero-cards">
-        <article class="hero-card">
-          <div class="hero-card-title">Pack all you want</div>
-          <div class="hero-card-copy">Up to 80% Off</div>
-        </article>
-        <article class="hero-card accent">
-          <div class="hero-card-title">T-shirts, shirts...</div>
-          <div class="hero-card-copy">Under ₹449</div>
-        </article>
+      <div class="hero-right">
+        <div class="hero-image-frame">
+          <div class="hero-carousel">
+            <div
+              class="hero-slide"
+              *ngFor="let slide of heroSlides; let i = index"
+              [class.active]="i === activeSlide"
+              [ngClass]="slide.theme"
+            >
+              <div class="hero-slide-content">
+                <span class="slide-chip">{{ slide.badge }}</span>
+                <h2>{{ slide.title }}</h2>
+                <p>{{ slide.subtitle }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-dots">
+            <button
+              *ngFor="let slide of heroSlides; let i = index"
+              class="carousel-dot"
+              [class.active]="i === activeSlide"
+              (click)="setSlide(i)"
+              type="button"
+              [attr.aria-label]="'Show slide ' + (i + 1)"
+            ></button>
+          </div>
+        </div>
+        <div class="hero-cards">
+          <article class="hero-card">
+            <div class="hero-card-title">Pack all you want</div>
+            <div class="hero-card-copy">Up to 80% Off</div>
+          </article>
+          <article class="hero-card accent">
+            <div class="hero-card-title">T-shirts, shirts...</div>
+            <div class="hero-card-copy">Under ₹449</div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -63,7 +92,7 @@
 
     <section class="category-grid">
       <article class="category-card">
-        <div class="icon">👕</div>
+        <div class="icon">📈</div>
         <strong>Trends</strong>
         <span>New arrivals</span>
       </article>
@@ -108,7 +137,7 @@
         <span>Trendy picks</span>
       </article>
       <article class="category-card">
-        <div class="icon">🌟</div>
+        <div class="icon">⭐</div>
         <strong>Celeb Looks</strong>
         <span>Copy the style</span>
       </article>
@@ -121,6 +150,44 @@
         <div class="icon">👟</div>
         <strong>Casual Shoes</strong>
         <span>Everyday wear</span>
+      </article>
+    </section>
+
+    <section class="feature-strip">
+      <article class="feature-card">
+        <div class="feature-icon">💎</div>
+        <div>
+          <strong>Top Brands</strong>
+          <span>100% Original Products</span>
+        </div>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">↩️</div>
+        <div>
+          <strong>Easy Returns</strong>
+          <span>15 Days Return Policy</span>
+        </div>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <div>
+          <strong>Fast Delivery</strong>
+          <span>On orders above ₹499</span>
+        </div>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div>
+          <strong>Secure Payments</strong>
+          <span>100% Safe & Secure</span>
+        </div>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">🏦</div>
+        <div>
+          <strong>SBI Card Offers</strong>
+          <span>Extra 10% Instant Discount</span>
+        </div>
       </article>
     </section>
   </main>

@@ -1,0 +1,45 @@
+<div class="login-page">
+  <section class="login-card">
+    <h1>Sign in to Fashion Zone</h1>
+    <div class="login-tabs">
+      <button type="button" [class.active]="loginMode === 'google'" (click)="selectMode('google')">Google</button>
+      <button type="button" [class.active]="loginMode === 'phone'" (click)="selectMode('phone')">Mobile</button>
+    </div>
+
+    <div class="alert error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert success" *ngIf="successMessage">{{ successMessage }}</div>
+
+    <div *ngIf="loginMode === 'google'" class="login-panel">
+      <button type="button" class="action-button google-button" (click)="signInWithGoogle()" [disabled]="isSendingOtp">
+        {{ isSendingOtp ? 'Signing in...' : 'Continue with Gmail' }}
+      </button>
+      <p class="hint">Sign in using your Gmail account for quick access.</p>
+    </div>
+
+    <div *ngIf="loginMode === 'phone'" class="login-panel">
+      <form [formGroup]="phoneForm" (ngSubmit)="sendOtp()">
+        <label for="phone">Mobile number</label>
+        <input id="phone" type="tel" formControlName="phone" placeholder="+919876543210" />
+        <button type="submit" class="action-button" [disabled]="phoneForm.invalid || isSendingOtp">
+          {{ isSendingOtp ? 'Sending OTP...' : 'Send OTP' }}
+        </button>
+      </form>
+
+      <div id="recaptcha-container"></div>
+
+      <form *ngIf="confirmationResult" [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+        <label for="otp">OTP code</label>
+        <input id="otp" type="text" formControlName="code" placeholder="123456" />
+        <button type="submit" class="action-button" [disabled]="otpForm.invalid || isVerifyingOtp">
+          {{ isVerifyingOtp ? 'Verifying...' : 'Verify OTP' }}
+        </button>
+      </form>
+
+      <p class="hint">A one-time password will be sent to your phone for secure sign in.</p>
+    </div>
+
+    <div class="footer-link">
+      <a routerLink="/">Back to home</a>
+    </div>
+  </section>
+</div>

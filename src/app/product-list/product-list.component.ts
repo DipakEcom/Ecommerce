@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -26,7 +26,7 @@ interface Product {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   selectedSort = 'Popularity';
   priceRange = {
     min: 150,
@@ -135,6 +135,19 @@ export class ProductListComponent {
       stockNote: ''
     }
   ];
+
+  ngOnInit(): void {
+    try {
+      const raw = localStorage.getItem('customProducts');
+      if (raw) {
+        const custom = JSON.parse(raw) as Product[];
+        // prepend or append custom products — we'll prepend so they appear first
+        this.products = [...custom, ...this.products];
+      }
+    } catch (err) {
+      console.error('Failed to load custom products', err);
+    }
+  }
 
   get visibleCount() {
     return this.filteredProducts.length;

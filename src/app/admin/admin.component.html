@@ -1,0 +1,104 @@
+<div class="admin-wrap">
+  <div class="admin-card">
+    <header class="admin-header">
+      <div>
+        <p class="eyebrow">Admin Dashboard</p>
+        <h2>Manage Product Cards</h2>
+        <p class="subtitle">Sign in to add new product cards, choose an image, and set pricing or discount values. Use the Google login or dummy admin email for local testing.</p>
+      </div>
+    </header>
+
+    <section *ngIf="!isAdmin" class="panel login-panel">
+      <div class="login-actions">
+        <button class="primary-btn" (click)="signIn()">Sign in with Google</button>
+      </div>
+
+      <div class="divider"><span>or</span></div>
+
+      <div class="manual-login">
+        <p class="hint">Dummy admin emails for local testing:</p>
+        <ul>
+          <li>admin&#64;fashionzone.test</li>
+          <li>owner&#64;fashionzone.test</li>
+          <li>manager&#64;fashionzone.test</li>
+        </ul>
+
+        <input
+          type="email"
+          [(ngModel)]="adminEmail"
+          placeholder="Enter dummy admin email"
+          aria-label="Dummy admin email"
+        />
+        <button class="secondary-btn" (click)="signInDummy()" type="button">Sign in with dummy email</button>
+      </div>
+    </section>
+
+    <section *ngIf="isAdmin" class="panel product-panel">
+      <div class="admin-status">
+        <div>
+          <p class="status-label">Signed in as</p>
+          <p class="status-value"><strong>{{ user?.email || 'admin' }}</strong></p>
+        </div>
+        <button class="link-btn" (click)="signOutLocal()">Sign out</button>
+      </div>
+
+      <div class="product-card">
+        <h3>Add Product</h3>
+        <form (ngSubmit)="addProduct()">
+          <div class="field-grid">
+            <label>
+              Brand
+              <input name="brand" [(ngModel)]="model.brand" />
+            </label>
+            <label>
+              Title
+              <input name="title" [(ngModel)]="model.title" />
+            </label>
+            <label>
+              Price
+              <input type="number" name="price" [(ngModel)]="model.price" />
+            </label>
+            <label>
+              Original Price
+              <input type="number" name="originalPrice" [(ngModel)]="model.originalPrice" />
+            </label>
+            <label>
+              Discount (%)
+              <input type="number" name="discount" [(ngModel)]="model.discount" />
+            </label>
+            <label>
+              Color
+              <input name="color" [(ngModel)]="model.color" />
+            </label>
+            <label>
+              Size
+              <input name="size" [(ngModel)]="model.size" />
+            </label>
+            <label>
+              Badge
+              <input name="badge" [(ngModel)]="model.badge" />
+            </label>
+            <label>
+              Installments
+              <input name="installments" [(ngModel)]="model.installments" />
+            </label>
+            <label>
+              Stock Note
+              <input name="stockNote" [(ngModel)]="model.stockNote" />
+            </label>
+            <label class="full-width">
+              Image
+              <input type="file" (change)="onFileChange($event)" accept="image/*" />
+            </label>
+          </div>
+
+          <div *ngIf="model.image" class="preview">
+            <img [src]="model.image" alt="Product preview" />
+          </div>
+
+          <button class="primary-btn large-btn" type="submit">Add Product</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
