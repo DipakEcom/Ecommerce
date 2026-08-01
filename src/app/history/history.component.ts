@@ -16,6 +16,7 @@ export class HistoryComponent implements OnInit {
   stats: SiteStats = { visitors: 0, onlineOrders: 0, codDelivered: 0, paymentsReceived: 0 };
   activeMetric: MetricKey | null = null;
   orders: OrderRecord[] = [];
+  highestOrderId: string | null = null;
   visitors: VisitorRecord[] = [];
   codHistory: CodRecord[] = [];
   payments: PaymentRecord[] = [];
@@ -34,7 +35,12 @@ export class HistoryComponent implements OnInit {
 
     this.activeMetric = metric;
     if (metric === 'orders' && this.orders.length === 0) {
-      this.historyService.getOrders().subscribe((o) => (this.orders = o));
+      this.historyService.getOrders().subscribe((o) => {
+        this.orders = o;
+        this.highestOrderId = o.length
+          ? o.reduce((best, current) => current.amount > best.amount ? current : best, o[0]).id
+          : null;
+      });
     }
     if (metric === 'visitors' && this.visitors.length === 0) {
       this.historyService.getVisitorHistory().subscribe((v) => (this.visitors = v));

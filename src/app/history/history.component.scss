@@ -146,6 +146,8 @@
 
       tbody tr { transition: background 0.12s ease; }
       tbody tr:hover { background: #fbfdff; }
+      tbody tr.highlight-row { background: rgba(37,99,235,0.08); }
+      tbody tr.highlight-row td { font-weight: 700; }
 
       .status-badge {
         display: inline-block;
